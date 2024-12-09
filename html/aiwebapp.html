@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe Game</title>
+  <style>
+    /* CSS */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+    }
+    .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border: 2px solid #000;
+      font-size: 2em;
+      cursor: pointer;
+    }
+    #status {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div id="status"></div>
+  <div id="board"></div>
+  <script>
+    // JavaScript
+    const board = document.getElementById('board');
+    const statusDisplay = document.getElementById('status');
+    const cells = Array(9).fill(null);
+    let currentPlayer = 'X';
+
+    function createBoard() {
+      cells.forEach((_, index) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.addEventListener('click', () => makeMove(index));
+        board.appendChild(cell);
+      });
+      updateStatus();
+    }
+
+    function makeMove(index) {
+      if (!cells[index]) {
+        cells[index] = currentPlayer;
+        renderBoard();
+        if (checkWinner()) {
+          setTimeout(() => alert(`${currentPlayer} wins!`), 10);
+          resetGame();
+        } else if (cells.every(cell => cell)) {
+          setTimeout(() => alert('Draw!'), 10);
+          resetGame();
+        } else {
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+          updateStatus();
+        }
+      }
+    }
+
+    function renderBoard() {
+      cells.forEach((mark, index) => {
+        const cell = board.children[index];
+        cell.textContent = mark;
+      });
+    }
+
+    function checkWinner() {
+      const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      return winningCombinations.some(combination => {
+        const [a, b, c] = combination;
+        return cells[a] && cells[a] === cells[b] && cells[a] === cells[c];
+      });
+    }
+
+    function updateStatus() {
+      statusDisplay.textContent = `It is your turn, ${currentPlayer}`;
+    }
+
+    function resetGame() {
+      cells.fill(null);
+      currentPlayer = 'X';
+      renderBoard();
+      updateStatus();
+    }
+
+    createBoard();
+  </script>
+</body>
+</html>
+

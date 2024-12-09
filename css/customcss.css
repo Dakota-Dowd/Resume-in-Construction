@@ -1,0 +1,47 @@
+.header{
+    position: absolute;
+    text-align: center;
+    left: 100px;
+    right: 0px;
+    top: 0px;
+    height: 130px;
+    background-image: url(../assets/img/Washington\ Picture.jpg);
+    background-position: 150% 17%; 
+    color:  white;
+
+}
+
+.leftbox{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    bottom: 0px;
+    background-color: rgba(139, 0, 0, 0.952);
+    /* background-color: goldenrod; */
+    text-align: center;
+    font-weight: bold;
+}
+
+.leftbox a{
+    color: whitesmoke;
+    font-weight: bold;
+    text-decoration: none;
+}
+.mainbox{
+    position: absolute;
+    background-color: rgb(197, 197, 197);
+    top: 130px;
+    left: 100px;
+    right: 0px;
+    height: 100%;
+}
+
+.tableau-section{
+    position: absolute;
+    background-color: darkslategrey;
+    bottom: 0px;
+    height: 100px;
+    right: 0px;
+    left: 100px;
+}
